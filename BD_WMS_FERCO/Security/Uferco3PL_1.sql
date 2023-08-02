@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [Uferco3PL]
+    WITH PASSWORD = N'Gnkzq|vsDkji63ybzwbYAwmdmsFT7_&#$!~<aj{~svk!uo?|', SID = 0x0A1269C417063B429A5A5F265827B165, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

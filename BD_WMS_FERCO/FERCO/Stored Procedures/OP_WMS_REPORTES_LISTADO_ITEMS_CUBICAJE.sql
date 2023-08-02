@@ -1,0 +1,88 @@
+﻿
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE FERCO.OP_WMS_REPORTES_LISTADO_ITEMS_CUBICAJE
+-- Add the parameters for the stored procedure here
+@CLASIFICACION VARCHAR(250)
+AS
+BEGIN
+  -- SET NOCOUNT ON added to prevent extra result sets from
+  -- interfering with SELECT statements.
+  SET NOCOUNT ON;
+
+  -- Insert statements for procedure here
+
+  IF @CLASIFICACION = 'CLIENT_NAME'
+  BEGIN
+    SELECT
+      CLIENT_NAME
+    FROM [FERCO].OP_WMS_VIEW_RPT_ALMGEN
+    WHERE QTY > 0
+    GROUP BY CLIENT_NAME
+    UNION
+    SELECT
+      CLIENT_NAME
+    FROM [FERCO].OP_WMS_VIEW_RPT_FISCAL
+    WHERE QTY > 0
+    GROUP BY CLIENT_NAME
+  END
+
+  IF @CLASIFICACION = 'BODEGA'
+  BEGIN
+    SELECT
+    DISTINCT
+      SUBSTRING(CURRENT_LOCATION, 1, 3) AS BODEGA
+    FROM [FERCO].OP_WMS_VIEW_RPT_ALMGEN
+    WHERE QTY > 0
+    GROUP BY CURRENT_LOCATION
+    UNION
+    SELECT
+    DISTINCT
+      SUBSTRING(CURRENT_LOCATION, 1, 3) AS BODEGA
+    FROM [FERCO].OP_WMS_VIEW_RPT_FISCAL
+    WHERE QTY > 0
+    GROUP BY CURRENT_LOCATION
+  END
+  IF @CLASIFICACION = 'SKU'
+  BEGIN
+    SELECT
+      BARCODE_ID
+    FROM [FERCO].OP_WMS_VIEW_RPT_ALMGEN
+    WHERE QTY > 0
+    GROUP BY BARCODE_ID
+    UNION
+    SELECT
+      BARCODE_ID
+    FROM [FERCO].OP_WMS_VIEW_RPT_FISCAL
+    WHERE QTY > 0
+    GROUP BY BARCODE_ID
+  END
+  IF @CLASIFICACION = 'MATERIAL_CLASS'
+  BEGIN
+    SELECT
+      MATERIAL_CLASS
+    FROM [FERCO].OP_WMS_VIEW_RPT_ALMGEN
+    WHERE QTY > 0
+    AND MATERIAL_CLASS != ''
+    GROUP BY MATERIAL_CLASS
+    UNION
+    SELECT
+      MATERIAL_CLASS
+    FROM [FERCO].OP_WMS_VIEW_RPT_FISCAL
+    WHERE QTY > 0
+    AND MATERIAL_CLASS != ''
+    GROUP BY MATERIAL_CLASS
+  END
+  IF @CLASIFICACION = 'REGIMEN'
+  BEGIN
+    SELECT
+      'FISCAL' AS REGIMEN
+    UNION
+    SELECT
+      'GENERAL' AS REGIMEN
+  END
+
+END

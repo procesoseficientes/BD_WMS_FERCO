@@ -1,0 +1,55 @@
+﻿-- =============================================
+-- Autor:				pablo.aguilar
+-- Fecha de Creacion: 	13-Aug-18 @ Nexus Team Sprint @FocaMonje 
+-- Description:			SP que 
+/*
+-- Ejemplo de Ejecucion:
+				EXEC [FERCO].[OP_WMS_BI_MATERIAL_TRANSACTION]
+				TRUNCATE TABLE [SCM_BI].[dbo].[MATERIAL_TRANSACTION_ANALYSIS]
+*/
+-- =============================================
+CREATE PROCEDURE [FERCO].[OP_WMS_BI_MATERIAL_TRANSACTION]
+AS
+BEGIN
+	
+	--
+	DECLARE	@LAST_DATE_LOGGED DATE  = '00010101';
+	
+	SELECT TOP 1
+		@LAST_DATE_LOGGED = [TRANS_DATE]
+	FROM
+		[SCM_BI].[dbo].[MATERIAL_TRANSACTION_ANALYSIS]
+	ORDER BY
+		[TRANS_DATE] DESC;	
+
+	INSERT	INTO [SCM_BI].[dbo].[MATERIAL_TRANSACTION_ANALYSIS]
+	SELECT
+		[M].[MATERIAL_ID]
+		,[M].[MATERIAL_NAME]
+		,[M].[ITEM_CODE_ERP]
+		,ABS([T].[QUANTITY_UNITS]) [QUANTITY_UNITS]
+		,[T].[TRANS_TYPE]
+		,[T].[TRANS_DATE]
+		,[T].[MATERIAL_COST]
+		,[T].[LOGIN_ID]
+		,[L].[LOGIN_NAME]
+		,[T].[TASK_ID]
+		,[T].[TARGET_LOCATION]
+		,[T].[SOURCE_LOCATION]
+		,[M].[WEIGTH] * [T].[QUANTITY_UNITS] [TRANS_WEIGHT]
+	FROM
+		[FERCO].[OP_WMS_TRANS] [T]
+	INNER JOIN [FERCO].[OP_WMS_MATERIALS] [M] ON [T].[MATERIAL_CODE] = [M].[MATERIAL_ID]
+	INNER JOIN [FERCO].[OP_WMS_LOGINS] [L] ON [L].[LOGIN_ID] = [T].[LOGIN_ID]
+	WHERE
+		[T].[STATUS] = 'PROCESSED'
+		AND CAST([T].[TRANS_DATE]AS DATE) > @LAST_DATE_LOGGED;
+	
+	
+	
+	
+	
+
+
+END;
+

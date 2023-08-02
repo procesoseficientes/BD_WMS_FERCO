@@ -1,0 +1,76 @@
+﻿
+/*
+--	12/28/2020		Gildardo Alvarado
+					Se intercambiaron nombres de las columnas [DispWMS] y [Total Wms]
+
+					select * from  [FERCO].[OP_WMS_VIEW_AVAILABLE_VS_ERP_CONSOLIDATE2] where codigo='ferco/000240'
+					select * from SWIFT_INTERFACES_ONLINE.[ferco].[ERP_VIEW_INVENTORY_ONLINE_SAP] where code_sku='000240'
+					select * from [FERCO].[OP_WMS_VIEW_GET_CONSOLIDATE_WMS_INVENTORY_STATUS] [A]
+					select * from  [FERCO].[OP_WMS_VIEW_AVAILABLE_VS_ERP_CONSOLIDATE2]
+					select * from SWIFT_INTERFACES_ONLINE.[ferco].[ERP_VIEW_INVENTORY_ONLINE_SAP] where code_sku='000240'
+					select * FROM [FERCO].[OP_WMS_VIEW_GET_CONSOLIDATE_WMS_INVENTORY_STATUS] [A]
+					where [ERP_WAREHOUSE]='BODEGA_HUEHUE'
+					ferco/016958
+*/ 
+
+-- =============================================
+CREATE VIEW [FERCO].[OP_WMS_VIEW_AVAILABLE_VS_ERP_CONSOLIDATE2]
+AS
+SELECT 
+    ISNULL([A].[CURRENT_WAREHOUSE],[X].[CODE_WAREHOUSE]) AS [Bodega]
+	,ISNULL([A].[MATERIAL_ID],[X].[CODE_SKU]) AS [Codigo]
+	,[A].[MATERIAL_NAME] AS [Nombre]
+	,ISNULL([A].[AVAILABLE], 0)
+	 AS [DispWMS]
+	,ISNULL([A].[INVENTORY_IN_RECEPTION], 0) [Inv recibido sin confirmación]
+	,ISNULL([A].[PICKED_PENDING_ERP], 0) [Inventario Preparado]
+	,ISNULL([A].[PICKED_PENDING_ERP_WT], 0) [Inventario Preparado WT]
+	,ISNULL([A].[AVAILABLE], 0)  
+	+ ISNULL([A].[INVENTORY_IN_RECEPTION], 0)
+	+ ISNULL([A].[PICKED_PENDING_ERP], 0)
+	+ ISNULL([A].[PICKED_PENDING_ERP_WT], 0)
+	  AS [Total Wms]
+	,ISNULL([X].[ON_HAND], 0) [Inv ERP]
+	,(ISNULL([A].[AVAILABLE], 0) 
+	+ ISNULL([A].[INVENTORY_IN_RECEPTION], 0)
+	+ ISNULL([A].[PICKED_PENDING_ERP], 0)
+	+ ISNULL([A].[PICKED_PENDING_ERP_WT], 0)) - ISNULL([X].[ON_HAND], 0) AS Diferencia
+
+FROM
+	[FERCO].[OP_WMS_VIEW_GET_CONSOLIDATE_WMS_INVENTORY_STATUS] [A] full outer JOIN 
+	[SWIFT_INTERFACES_ONLINE].[ferco].[ERP_VIEW_INVENTORY_ONLINE_SAP] [X] ON (
+											[X].[CODE_WAREHOUSE] = [A].ERP_WAREHOUSE COLLATE DATABASE_DEFAULT
+											AND [X].[CODE_SKU] = [FERCO].[OP_WMS_FN_SPLIT_COLUMNS]([A].[MATERIAL_ID],
+											2, '/')
+											)
+											--WHERE A.MATERIAL_ID NOT LIKE '%ferco/KIT%'
+--UNION 
+--	SELECT 
+--    ISNULL([A].[CURRENT_WAREHOUSE],[X].[CODE_WAREHOUSE]) AS [Bodega]
+--	,ISNULL([A].[MATERIAL_ID],[X].[CODE_SKU]) AS [Codigo]
+--	,[A].[MATERIAL_NAME] AS [Nombre]
+--	,ISNULL([A].[AVAILABLE], 0)
+--	 AS [DispWMS]
+--	,ISNULL([A].[INVENTORY_IN_RECEPTION], 0) [Inv recibido sin confirmación]
+--	,ISNULL([A].[PICKED_PENDING_ERP], 0) [Inventario Preparado]
+--	,ISNULL([A].[PICKED_PENDING_ERP_WT], 0) [Inventario Preparado WT]
+--	,ISNULL([A].[AVAILABLE], 0)  
+--	+ ISNULL([A].[INVENTORY_IN_RECEPTION], 0)
+--	+ ISNULL([A].[PICKED_PENDING_ERP], 0)
+--	+ ISNULL([A].[PICKED_PENDING_ERP_WT], 0)
+--	  AS [Total Wms]
+--	,ISNULL([X].[ON_HAND], 0) [Inv ERP]
+--	,(ISNULL([A].[AVAILABLE], 0) 
+--	+ ISNULL([A].[INVENTORY_IN_RECEPTION], 0)
+--	+ ISNULL([A].[PICKED_PENDING_ERP], 0)
+--	+ ISNULL([A].[PICKED_PENDING_ERP_WT], 0)) - ISNULL([X].[ON_HAND], 0) AS Diferencia
+
+--FROM
+--	[FERCO].[OP_WMS_VIEW_GET_CONSOLIDATE_WMS_INVENTORY_STATUS] [A] full outer JOIN 
+--	[SWIFT_INTERFACES_ONLINE].[ferco].[ERP_VIEW_INVENTORY_ONLINE_SAP] [X] ON (
+--											[X].[CODE_WAREHOUSE] = [A].ERP_WAREHOUSE COLLATE DATABASE_DEFAULT
+--											AND [X].[CODE_SKU] = [FERCO].[OP_WMS_FN_SPLIT_COLUMNS]([A].[MATERIAL_ID],
+--											2, '/')
+--											)LEFT JOIN [FERCO].[OP_WMS_MATERIALS] B ON A.MATERIAL_ID = B.MATERIAL_ID				
+--	WHERE B.IS_MASTER_PACK = 1
+	

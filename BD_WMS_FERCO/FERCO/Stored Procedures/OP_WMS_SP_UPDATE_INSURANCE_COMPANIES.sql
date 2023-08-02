@@ -1,0 +1,54 @@
+﻿
+-- =============================================
+-- Autor:				jose.garcia
+-- Fecha de Creacion: 	06-01-2016
+-- Description:			Resta el inventario de la tabla inv_x_licencia
+/*
+-- Ejemplo de Ejecucion:				
+				--
+				exec [FERCO].[OP_WMS_SP_UPDATE_INV_X_LICENSE] 
+							@QTY ='75'
+							,@Code_sku ='110017' 
+							,@CUSTOMER ='C00330'
+							,@RESULTADO =''
+				--				
+*/
+-- =============================================
+CREATE PROCEDURE FERCO.OP_WMS_SP_UPDATE_INSURANCE_COMPANIES @POLIZA_SEGURO VARCHAR(50)
+, @user VARCHAR(50)
+, @Rpoliza VARCHAR(250) OUTPUT
+
+AS
+
+  DECLARE @INVENTARIO AS NUMERIC(18, 2)
+         ,@DISPONIBLE AS NUMERIC(18, 2)
+         ,@TOTAL AS NUMERIC(18, 2)
+
+  SELECT
+    @INVENTARIO = SUM(PD.CUSTOMS_AMOUNT * pd.QTY)  --06042016
+  FROM [FERCO].[OP_WMS_POLIZA_HEADER] PH
+  INNER JOIN [FERCO].[OP_WMS_POLIZA_DETAIL] PD
+    ON (PH.DOC_ID = PD.DOC_ID)
+  INNER JOIN [FERCO].[OP_WMS_INV_X_LICENSE] IL
+    ON (PD.SKU_DESCRIPTION = IL.MATERIAL_NAME)
+  INNER JOIN [FERCO].[OP_WMS_VIEW_INSURANCE_DOC] ID
+    ON (ID.POLIZA_INSURANCE = PH.POLIZA_ASEGURADA)
+  WHERE PH.POLIZA_ASEGURADA = @POLIZA_SEGURO
+
+
+  SELECT
+    @TOTAL = ID.AMOUNT
+  FROM [FERCO].[OP_WMS_VIEW_INSURANCE_DOC] ID
+  WHERE ID.POLIZA_INSURANCE = @POLIZA_SEGURO
+
+  SET @DISPONIBLE = @TOTAL - @INVENTARIO
+  SET @Rpoliza = @DISPONIBLE
+  SELECT
+    CONVERT(VARCHAR(25), @Rpoliza) + '#' + CONVERT(VARCHAR(25), @TOTAL) RPoliza
+
+
+  UPDATE [FERCO].[OP_WMS_INSURANCE_DOCS]
+  SET AVAILABLE = @DISPONIBLE
+     ,LAST_UPDATED = GETDATE()
+     ,LAST_TXN_DATE = GETDATE()
+     ,LAST_UPDATED_BY = @user

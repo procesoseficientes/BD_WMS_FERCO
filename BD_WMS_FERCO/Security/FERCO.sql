@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [FERCO]
+    AUTHORIZATION [Uferco3PL];
+

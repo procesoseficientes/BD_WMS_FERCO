@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>DB_WMS_SWIFT_INTERFACES</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{a1b46967-299d-4a9b-9d38-976a773d40b8}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>DB_WMS_SWIFTINTERFACES</RootNamespace>
+    <AssemblyName>DB_WMS_SWIFTINTERFACES</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="ferco\" />
+    <Folder Include="ferco\Tables\" />
+    <Folder Include="ferco\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="ferco\Functions\" />
+    <Folder Include="ferco\Stored Procedures\" />
+    <Folder Include="DataSync\" />
+    <Folder Include="DataSync\User Defined Types\" />
+    <Folder Include="ferco\Synonyms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="ferco\Tables\ERP_SALES_ORDER_SEQUENCE_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Tables\ERP_SALES_ORDER_HEADER_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Tables\ERP_SALES_ORDER_DETAIL_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_ORDER_HEADER.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_ORDER_SERIE_DETAIL.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_PICKING.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_PROVIDERS.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_PURCHASE_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_PURCHASE_ORDER_HEADER.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_PURCHASE_SERIE_DETAIL.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_RECEPTION.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_SKU.sql" />
+    <Build Include="ferco\Tables\SWIFT_WAREHOUSES.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_WAREHOUSE.sql" />
+    <Build Include="ferco\Tables\BULK_DATA_CONFIGURATION.sql" />
+    <Build Include="ferco\Tables\BULK_DATA_CONFIGURATION_LOG.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_CUSTOMERS.sql" />
+    <Build Include="ferco\Tables\SWIFT_ERP_SELLER.sql" />
+    <Build Include="ferco\Tables\ERP_DELIVERY_ORDER_HEADER.sql" />
+    <Build Include="ferco\Tables\ERP_DELIVERY_ORDER_SEQUENCE.sql" />
+    <Build Include="ferco\Tables\ERP_DELIVERY_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_SALES_ORDER_HEADER_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_SALES_ORDER_DETAIL_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Views\ERP_VW_TRANSFER_REQUEST_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VW_TRANSFER_REQUEST_HEADER.sql" />
+    <Build Include="ferco\Views\ERP_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_SWIFT_VIEW_COST_CENTER_BY_WAREHOUSE.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_INVOICE_DETAIL_FOR_INTERFACE.sql" />
+    <Build Include="ferco\Views\ERP_ORDER_HEADER.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_COSTUMER.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_INVOICE_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_INVOICE_HEADER.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_ORDER_SERIE_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_PICKING.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_PROVIDERS.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_PURCHASE_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_PURCHASE_ORDER_HEADER.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_CLIENTS_OF_CHANNEL_MODERN.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_PURCHASE_SERIE_DETAIL.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_RECEPTION.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_SELLER.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_SKU.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_WAREHOUSE.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_RECEPTION_DOCUMENT.sql" />
+    <Build Include="ferco\Views\ERP_VIEW_RECEPTION_DOCUMENT_DETAIL.sql" />
+    <Build Include="Security\probiz.sql" />
+    <Build Include="Security\ferco.sql" />
+    <Build Include="Security\Uferco.sql" />
+    <Build Include="Security\cerouno.sql" />
+    <Build Include="Security\confitesa.sql" />
+    <Build Include="Security\alsersa.sql" />
+    <Build Include="Security\delivery.sql" />
+    <Build Include="Security\FERCO_lcarrera.sql" />
+    <Build Include="Security\FERCO_daniel.monterroso.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Functions\FUNC_REMOVE_SPECIAL_CHARS.sql" />
+    <Build Include="ferco\Functions\ORDR_DATE_FILTERED.sql" />
+    <Build Include="ferco\Functions\RDR1_DATE_FILTERED.sql" />
+    <Build Include="dbo\Functions\RDR12_DATE_FILTERED.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SKU_BASE_PRICE_BY_PACK.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PRICE_LIST_BY_SKU_PACK_SCALE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_CUSTOMER_INTERCOMPANY_FOR_OP_WMS.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_MATERIAL_INTERCOMPANY_FOR_OP_WMS.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SELLER_INTERCOMPANY_FOR_OP_WMS.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_DELETE_SALES_ORDER_BY_SEQUENCE.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_SALES_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_SALES_ORDER_DETAIL_FOR_REPORT.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_SALES_ORDER_HEADER_FOR_REPORT.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_ERP_DOC_NUM_FOR_DOCUMENT_BY_DOC_ENTRY.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_ERP_SP_BULK_DATA.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_INFORMATION_OF_SELLER_DELIVERY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PRICE_LIST_FOR_INTERCOMPANY_FOR_OP_WMS.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_NEXT_SEQUENCE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SALES_ORGANIZATION.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SALES_OFFICE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_WAREHOUSE_BY_SALES_OFFICE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_MATERIALS_WITH_CATEGORY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SKU_FAMILY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SELLER_INFO.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_TAG.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_BONUS.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_COMPANY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_INVENTORY_ONLINE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_CUSTOMER_INTERCOMPANY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SELLER_INTERCOMPANY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SKU_INTERCOMPANY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_ROUTE_FRECUENCY.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_ROUTES.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_CUSTOMERS_FOR_NEXT.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SKU.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_SELLER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PROVIDER.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_ERP_INVOICE_BY_DOC_NUM_FOR_RETURN_IN_WMS.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_CUSTOMER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_ORDER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PURCHASE_ORDER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_RECEPTION.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PRICE_LIST.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PRICE_LIST_BY_SKU.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PRICE_LIST_BY_CUSTOMER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_WAREHOUSE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_INVENTORY.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_PREPROCESS_DATA_FOR_INITAL_ROUTE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_GENERATE_PRICE_LIST_FOR_ROUTE.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_INSERT_LOG.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_PROCESS.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_CLEAN_LOG.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_PACK_CONVERSION.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_DELIVERY_ORDER_HEADER.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_DELETE_DELIVERY_ORDER_BY_SEQUENCE.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_DELIVERY_ORDER_DETAIL.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_SALES_ORDER_HEADER.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_ERP_DOCUMENT_FOR_DELIVERY_NOTE_BY_DOC_NUM.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_IMPORT_DISCOUNT.sql" />
+    <Build Include="ferco\Stored Procedures\SWIFT_SP_GET_INFORMATION_OF_SELLER.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_GENERATE_PACK_CONVERTION.sql" />
+    <Build Include="ferco\Stored Procedures\BULK_DATA_SP_GENERATE_SCALE.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_DELIVERY_ORDER_HEADER_FOR_REPORT.sql" />
+    <Build Include="ferco\Stored Procedures\ERP_SP_INSERT_DELIVERY_ORDER_DETAIL_FOR_REPORT.sql" />
+    <Build Include="DataSync\User Defined Types\SWIFT_ERP_CUSTOMERS_dss_BulkType_2e0cdad2-f0d7-461c-b2b2-37ffb6d7edf4.sql" />
+    <Build Include="DataSync\User Defined Types\SWIFT_ERP_ORDER_DETAIL_dss_BulkType_2e0cdad2-f0d7-461c-b2b2-37ffb6d7edf4.sql" />
+    <Build Include="DataSync\User Defined Types\SWIFT_ERP_PROVIDERS_dss_BulkType_2e0cdad2-f0d7-461c-b2b2-37ffb6d7edf4.sql" />
+    <Build Include="DataSync\User Defined Types\SWIFT_ERP_SELLER_dss_BulkType_2e0cdad2-f0d7-461c-b2b2-37ffb6d7edf4.sql" />
+    <Build Include="DataSync\User Defined Types\SWIFT_ERP_SKU_dss_BulkType_2e0cdad2-f0d7-461c-b2b2-37ffb6d7edf4.sql" />
+    <Build Include="Security\DataSync.sql" />
+    <Build Include="Security\ferco_1.sql" />
+    <Build Include="ferco\Synonyms\ERP_VIEW_DOC_FOR_PICKING.sql" />
+  </ItemGroup>
+</Project>
