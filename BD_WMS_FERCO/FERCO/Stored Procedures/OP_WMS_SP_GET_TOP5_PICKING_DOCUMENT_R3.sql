@@ -45,7 +45,7 @@ BEGIN
 	-- Selecciona el TOP 5 y filtra con la tablas temporales creadas anteriormente
 	-- ------------------------------------------------------------------------------------
 
-	SELECT TOP 6
+	SELECT TOP 8
 		CAST([PDH].[PICKING_DEMAND_HEADER_ID] AS VARCHAR) [PICKING_HEADER]
 		,[PDH].[DOC_NUM]
 		,'' [CODE_CLIENT]
